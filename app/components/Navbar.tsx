@@ -32,6 +32,7 @@ const Navbar = () => {
           <div className='space-x-4 text-sm text-gray-300'>
             {menus.map(({ to, label }) => (
               <NavLink
+                key={to}
                 className={({ isActive }) => (isActive ? active : base)}
                 to={to}
               >

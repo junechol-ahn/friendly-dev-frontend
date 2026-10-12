@@ -12,9 +12,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   
 
-  return <section>
-    <h2 className="text-3xl font-bold text-white mb-8 text-center">
-      <Hero name='Clark'/>
-    </h2>
-  </section>
+  return <>
+    Home Page
+  </>
 }
