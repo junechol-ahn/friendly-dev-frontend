@@ -1,7 +1,12 @@
+import type React from 'react'
 import { Link } from 'react-router'
 import type { Project } from '~/types'
 
-const ProjectCard = ({ project }: { project: Project }) => {
+type ProjectCardProps = {
+  project: Project
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
     <Link
       className='block transform transition duration-300 hover:scale-[1.02]'

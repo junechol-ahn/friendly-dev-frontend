@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router'
 import { FaLaptopCode, FaTimes, FaBars } from 'react-icons/fa'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const base = 'transition hover:text-blue-400'
