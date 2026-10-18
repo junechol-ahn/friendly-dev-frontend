@@ -1,0 +1,72 @@
+[
+  {
+    "id": "1",
+    "slug": "react-hooks-overview",
+    "title": "A Practical Guide to React Hooks",
+    "excerpt": "Understand useState, useEffect, and custom hooks with real-world examples.",
+    "date": "2025-03-01T00:00:00"
+  },
+  {
+    "id": "2",
+    "slug": "css-utility-vs-component",
+    "title": "Utility-First vs Component-Based CSS",
+    "excerpt": "Explore the pros and cons of Tailwind CSS vs traditional component styling.",
+    "date": "2025-02-25T00:00:00"
+  },
+  {
+    "id": "3",
+    "slug": "api-authentication-strategies",
+    "title": "API Authentication Strategies Explained",
+    "excerpt": "A breakdown of API auth methods like JWT, OAuth2, API keys, and more.",
+    "date": "2025-02-18T00:00:00"
+  },
+  {
+    "id": "4",
+    "slug": "writing-clean-code",
+    "title": "Writing Clean and Maintainable Code",
+    "excerpt": "Best practices to improve code readability, structure, and reusability.",
+    "date": "2025-02-10T00:00:00"
+  },
+  {
+    "id": "5",
+    "slug": "deploying-fullstack-apps",
+    "title": "Deploying Full-Stack Apps: A Simple Guide",
+    "excerpt": "Everything you need to know to deploy your frontend and backend together.",
+    "date": "2025-01-28T00:00:00"
+  },
+  {
+    "id": "6",
+    "slug": "understanding-k8s",
+    "title": "Kubernetes for Dummies",
+    "excerpt": "Just started learning k8s? You have to read this article.",
+    "date": "2026-04-20T12:00:00"
+  },
+  {
+    "id": "7",
+    "slug": "understanding-bun",
+    "title": "Bun 이해하기: JavaScript 실행부터 패키지 관리까지",
+    "excerpt": "Bun의 런타임과 패키지 관리자 역할을 이해하고, 기본 명령과 HTTP 서버 예제를 살펴봅니다.",
+    "date": "2026-10-12T12:00:00"
+  },
+  {
+    "id": "8",
+    "slug": "understanding-vue",
+    "title": "Vue.js 이해하기: 반응형 상태와 컴포넌트",
+    "excerpt": "Vue 3의 Composition API를 중심으로 ref, computed, 템플릿과 컴포넌트의 데이터 흐름을 알아봅니다.",
+    "date": "2026-10-11T12:00:00"
+  },
+  {
+    "id": "9",
+    "slug": "understanding-svelte",
+    "title": "Svelte 이해하기: 컴파일러와 반응형 상태",
+    "excerpt": "Svelte 5의 $state와 $derived를 활용해 반응형 컴포넌트를 만들고 SvelteKit과의 역할 차이를 이해합니다.",
+    "date": "2026-10-17T12:00:00"
+  },
+  {
+    "id": "10",
+    "slug": "understanding-zustand",
+    "title": "Zustand 이해하기: React 컴포넌트 간 상태 공유",
+    "excerpt": "TypeScript로 Zustand store를 만들고 selector, 상태 갱신, SSR 환경의 고려사항을 살펴봅니다.",
+    "date": "2026-10-18T12:00:00"
+  }
+]
