@@ -1,18 +1,31 @@
 import { type Route } from './+types'
-import { type PostMeta } from '~/types'
+import type { PostMeta, StrapiResponse, StrapiPost } from '~/types'
 import PostCard from '~/components/PostCard'
 import { useState } from 'react'
 import Pagination from '~/components/Pagination'
 import PostFilter from '~/components/PostFilter'
+import { env } from '~/config/env'
 
 export async function loader({
   request,
 }: Route.LoaderArgs): Promise<{ posts: PostMeta[] }> {
-  const url = new URL('/posts-meta.json', request.url)
+  const url = new URL('/api/posts?populate=*', env.strapiUrl)
   const res = await fetch(url.href)
 
   if (!res.ok) throw new Error('Failed to fetch data')
-  const data = await res.json()
+  const json:StrapiResponse<StrapiPost> = await res.json()
+
+
+  const data:PostMeta[] = json.data.map(sp => ({
+    id: sp.id,
+    documentId: sp.documentId,
+    slug: sp.slug,
+    title: sp.title,
+    excerpt: sp.excerpt,
+    date: sp.date,
+    body: sp.body,
+    image: sp.image ? `${env.strapiUrl}${sp.image.url}` : '/images/no-image.png'
+  }))
 
   data.sort((a: PostMeta, b: PostMeta) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -39,7 +52,6 @@ const BlogPage = ({ loaderData }: Route.ComponentProps) => {
   const totalPages = Math.ceil(posts.length / postsPerPage)
   const indexOfLast = currentPage * postsPerPage
   const indexOfFirst = indexOfLast - postsPerPage
-  // console.log(posts)
 
   const currentPosts = posts.slice(indexOfFirst, indexOfLast)
 

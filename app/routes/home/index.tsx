@@ -2,7 +2,7 @@ import Hero from '~/components/Hero'
 import type { Route } from './+types/index'
 import { useEffect } from 'react'
 import FeaturedProjects from '~/components/FeaturedProjects'
-import type { PostMeta, Project } from '~/types'
+import type { PostMeta, Project, StrapiPost, StrapiProject } from '~/types'
 import { env } from '~/config/env'
 import AboutPreview from '~/components/AboutPreview'
 import LatestPost from '~/components/LatestPost'
@@ -23,19 +23,41 @@ export async function loader({
   request,
 }: Route.LoaderArgs): Promise<HomePageLoadResult> {
   const url = new URL(request.url)
-  const [projectRes, postRes] = await Promise.all([
-    fetch(`${env.apiUrl}/projects`),
-    fetch(new URL('/posts-meta.json', url))
+  const [strapiProjectRes, strapiPostRes] = await Promise.all([
+    fetch(`${env.apiUrl}/projects?populate=*`),
+    fetch(new URL('/api/posts?populate=*', env.strapiUrl))
   ])
 
-  if (!projectRes.ok || !postRes.ok) {
+  if (!strapiProjectRes.ok || !strapiPostRes.ok) {
     throw new Error('Failed to fetch projects or posts')
   }
 
-  const [projects, posts] = await Promise.all([
-    projectRes.json(),
-    postRes.json()
+  const [strapiProjects, strapiPosts] 
+  : [ 
+    strapiProjects:{data:StrapiProject[]}, 
+    strapiPosts:{data:StrapiPost[]}
+  ] = await Promise.all([
+    strapiProjectRes.json(),
+    strapiPostRes.json()
   ])
+  
+  const projects = strapiProjects.data.map((sp:StrapiProject)=>({
+    id: sp.id,
+    documentId: sp.documentId,
+    title: sp.title,
+    description: sp.description,
+    image: sp.image?.url ? `${env.strapiUrl}${sp.image.url}` : '/images/no-image.png',
+    url: sp.url,
+    date: sp.date,
+    category: sp.category,
+    featured: sp.featured,
+  }))
+
+  const posts:PostMeta[] = strapiPosts.data.map((sp)=>({
+    ...sp,
+    image: sp.image ? sp.image.url : '/images/no-image.png' 
+  }))
+
 
   return { projects: projects, posts: posts }
 }

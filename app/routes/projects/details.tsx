@@ -1,30 +1,28 @@
 import type { Route } from './+types/details'
-import type { Project } from '~/types'
+import type { Project, StrapiProject } from '~/types'
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'
 import { Link } from 'react-router'
 import { env } from '~/config/env'
 
 
 
-export async function clientLoader({
+export async function loader({
   request,
   params,
-}: Route.ClientLoaderArgs): Promise<Project> {
-  const res = await fetch(`${env.apiUrl}/projects/${params.id}`)
+}: Route.LoaderArgs) {
+  const res = await fetch(`${env.apiUrl}/projects/${params.id}?populate=*`)
 
   if (!res.ok) throw new Response('Project not found', { status: 404 })
 
-  const project: Project = await res.json()
+  const json = await res.json()
+  const project: StrapiProject = json.data
 
   return project
 }
 
-export function HydrateFallback() {
-  return <div>Loading...</div>
-}
-
 const ProjectDetailsPage = ({ loaderData }: Route.ComponentProps) => {
   const project = loaderData
+  const imgUrl = project.image ? `${env.strapiUrl}${project.image.url}` : '/images/no-image.png'
   return <>
     <Link to='/projects' className='flex items-center text-blue-400 hover:text-blue-500 mb-6 transition'>
       <FaArrowLeft className='mr-2'/> Back to Projects
@@ -32,7 +30,7 @@ const ProjectDetailsPage = ({ loaderData }: Route.ComponentProps) => {
     <div className="grid gap-8 md:grid-cols-2 items-start">
       <div>
 
-      <img src={project.image} alt={project.title} className='w-full rounded-lg shadow-md' />
+      <img src={imgUrl} alt={project.title} className='w-full rounded-lg shadow-md' />
       </div>
       <div>
         <h1 className="text-3xl font-bold text-blue-400 mb-4">

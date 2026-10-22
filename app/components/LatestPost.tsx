@@ -20,7 +20,7 @@ const LatestPost = ({posts, limit=3}: LatestPostProps) => {
       </h2>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {latestPosts.map((post)=>(
-          <Link to={`/blog/${post.slug}`} key={post.slug}
+          <Link to={`/blog/${post.documentId}`} key={post.documentId}
             className="block p-4 border border-gray-700 rounded-lg bg-gray-800 hover:shadow-md transition"
           >
             <h3 className="text-lg font-semibold text-blue-400 mb-1">
