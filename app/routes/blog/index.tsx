@@ -24,7 +24,7 @@ export async function loader({
     excerpt: sp.excerpt,
     date: sp.date,
     body: sp.body,
-    image: sp.image ? `${env.strapiUrl}${sp.image.url}` : '/images/no-image.png'
+    image: sp.image ? sp.image.url : '/images/no-image.png'
   }))
 
   data.sort((a: PostMeta, b: PostMeta) => {

@@ -46,7 +46,7 @@ export async function loader({
     documentId: sp.documentId,
     title: sp.title,
     description: sp.description,
-    image: sp.image?.url ? `${env.strapiUrl}${sp.image.url}` : '/images/no-image.png',
+    image: sp.image?.url ? sp.image.url : '/images/no-image.png',
     url: sp.url,
     date: sp.date,
     category: sp.category,

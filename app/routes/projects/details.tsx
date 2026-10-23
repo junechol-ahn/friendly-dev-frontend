@@ -22,7 +22,7 @@ export async function loader({
 
 const ProjectDetailsPage = ({ loaderData }: Route.ComponentProps) => {
   const project = loaderData
-  const imgUrl = project.image ? `${env.strapiUrl}${project.image.url}` : '/images/no-image.png'
+  const imgUrl = project.image ? project.image.url : '/images/no-image.png'
   return <>
     <Link to='/projects' className='flex items-center text-blue-400 hover:text-blue-500 mb-6 transition'>
       <FaArrowLeft className='mr-2'/> Back to Projects

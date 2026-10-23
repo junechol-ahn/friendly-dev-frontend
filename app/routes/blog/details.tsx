@@ -22,7 +22,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
     excerpt: sp.excerpt,
     date: sp.date,
     body: sp.body,
-    image: sp.image ? `${env.strapiUrl}${sp.image.url}` : '/images/no-image.png'
+    image: sp.image ? sp.image.url : '/images/no-image.png'
   }
 
   return {
