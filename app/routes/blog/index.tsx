@@ -9,14 +9,13 @@ import { env } from '~/config/env'
 export async function loader({
   request,
 }: Route.LoaderArgs): Promise<{ posts: PostMeta[] }> {
-  const url = new URL('/api/posts?populate=*', env.strapiUrl)
+  const url = new URL('/api/posts?populate=*', env.apiUrl)
   const res = await fetch(url.href)
 
   if (!res.ok) throw new Error('Failed to fetch data')
-  const json:StrapiResponse<StrapiPost> = await res.json()
+  const json: StrapiResponse<StrapiPost> = await res.json()
 
-
-  const data:PostMeta[] = json.data.map(sp => ({
+  const data: PostMeta[] = json.data.map((sp) => ({
     id: sp.id,
     documentId: sp.documentId,
     slug: sp.slug,
@@ -24,7 +23,7 @@ export async function loader({
     excerpt: sp.excerpt,
     date: sp.date,
     body: sp.body,
-    image: sp.image ? sp.image.url : '/images/no-image.png'
+    image: sp.image ? sp.image.url : '/images/no-image.png',
   }))
 
   data.sort((a: PostMeta, b: PostMeta) => {

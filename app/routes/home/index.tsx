@@ -15,7 +15,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 type HomePageLoadResult = {
-  projects: Project[],
+  projects: Project[]
   posts: PostMeta[]
 }
 
@@ -24,24 +24,20 @@ export async function loader({
 }: Route.LoaderArgs): Promise<HomePageLoadResult> {
   const url = new URL(request.url)
   const [strapiProjectRes, strapiPostRes] = await Promise.all([
-    fetch(`${env.apiUrl}/projects?populate=*`),
-    fetch(new URL('/api/posts?populate=*', env.strapiUrl))
+    fetch(new URL('/api/projects?populate=*', env.apiUrl)),
+    fetch(new URL('/api/posts?populate=*', env.apiUrl)),
   ])
 
   if (!strapiProjectRes.ok || !strapiPostRes.ok) {
     throw new Error('Failed to fetch projects or posts')
   }
 
-  const [strapiProjects, strapiPosts] 
-  : [ 
-    strapiProjects:{data:StrapiProject[]}, 
-    strapiPosts:{data:StrapiPost[]}
-  ] = await Promise.all([
-    strapiProjectRes.json(),
-    strapiPostRes.json()
-  ])
-  
-  const projects = strapiProjects.data.map((sp:StrapiProject)=>({
+  const [strapiProjects, strapiPosts]: [
+    strapiProjects: { data: StrapiProject[] },
+    strapiPosts: { data: StrapiPost[] },
+  ] = await Promise.all([strapiProjectRes.json(), strapiPostRes.json()])
+
+  const projects = strapiProjects.data.map((sp: StrapiProject) => ({
     id: sp.id,
     documentId: sp.documentId,
     title: sp.title,
@@ -53,25 +49,22 @@ export async function loader({
     featured: sp.featured,
   }))
 
-  const posts:PostMeta[] = strapiPosts.data.map((sp)=>({
+  const posts: PostMeta[] = strapiPosts.data.map((sp) => ({
     ...sp,
-    image: sp.image ? sp.image.url : '/images/no-image.png' 
+    image: sp.image ? sp.image.url : '/images/no-image.png',
   }))
-
 
   return { projects: projects, posts: posts }
 }
 
-const HomePage = ({loaderData}: Route.ComponentProps) => {
+const HomePage = ({ loaderData }: Route.ComponentProps) => {
   const { projects, posts } = loaderData
-
-
 
   return (
     <>
-      <FeaturedProjects projects={projects} count={2}/>
-      <AboutPreview/>
-      <LatestPost posts={posts}/>
+      <FeaturedProjects projects={projects} count={2} />
+      <AboutPreview />
+      <LatestPost posts={posts} />
     </>
   )
 }

@@ -16,12 +16,10 @@ export function meta({}: Route.MetaArgs) {
 export async function loader({
   request,
 }: Route.LoaderArgs): Promise<{ projects: Project[] }> {
-  const res = await fetch(`${env.apiUrl}/projects?populate=*`)
-  const json:StrapiResponse<StrapiProject> = await res.json()
+  const res = await fetch(new URL('/api/projects?populate=*', env.apiUrl))
+  const json: StrapiResponse<StrapiProject> = await res.json()
 
-  
-
-  const projects = json.data.map(item => ({
+  const projects = json.data.map((item) => ({
     id: item.id,
     documentId: item.documentId,
     title: item.title,
@@ -87,8 +85,7 @@ const ProjectsPage = ({ loaderData }: Route.ComponentProps) => {
         <motion.div className='grid gap-6 sm:grid-cols-2'>
           {currentProjects.map((project) => (
             <motion.div key={project.id} layout>
-
-            <ProjectCard project={project} key={project.id} />
+              <ProjectCard project={project} key={project.id} />
             </motion.div>
           ))}
         </motion.div>
