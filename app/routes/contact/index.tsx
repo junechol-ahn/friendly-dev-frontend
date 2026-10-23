@@ -1,4 +1,4 @@
-import { type Route } from './+types'
+import type { Route } from './+types/index'
 // import { Form } from 'react-router'
 
 // export async function action({ request }: Route.ActionArgs) {

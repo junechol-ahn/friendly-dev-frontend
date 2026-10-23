@@ -1,4 +1,4 @@
-import { type Route } from './+types'
+import type { Route } from './+types/index'
 import type { PostMeta, StrapiResponse, StrapiPost } from '~/types'
 import PostCard from '~/components/PostCard'
 import { useState } from 'react'

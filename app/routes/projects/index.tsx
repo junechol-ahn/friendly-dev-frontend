@@ -1,5 +1,5 @@
 import ProjectCard from '~/components/ProjectCard'
-import type { Route } from './+types'
+import type { Route } from './+types/index'
 import type { Project, StrapiProject, StrapiResponse } from '~/types'
 import { use, useState } from 'react'
 import Pagination from '~/components/Pagination'
